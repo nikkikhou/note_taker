@@ -45,6 +45,18 @@ app.post("/api/notes", (req, res) => {
   });
 });
 
+app.delete("/api/notes/:id", (req, res) => {
+    console.log(req.params)
+    const {id } = req.params;
+    readFromFile("./db/db.json").then((data) => {
+        let db = JSON.parse(data);
+        db = db.filter(note => note.id !== id)
+        console.log(db);
+        writeToFile("./db/db.json", db);
+        res.json(db)
+      });
+  });
+
 // server
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
