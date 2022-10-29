@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const util = require("util");
-const { debugPort } = require("process");
+const { v4: uuidv4 } = require('uuid');
 
 // call express to object
 const app = express();
@@ -38,7 +38,7 @@ app.post("/api/notes", (req, res) => {
   const { text, title } = req.body;
   readFromFile("./db/db.json").then((data) => {
     let db = JSON.parse(data);
-    db.push({ id: "fakeId", text, title });
+    db.push({ id: uuidv4(), text, title });
     console.log(db);
     writeToFile("./db/db.json", db);
     res.json(db)
