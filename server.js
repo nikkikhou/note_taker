@@ -14,11 +14,15 @@ app.use(express.static("public"));
 // root route
 app.get("/", (req, res) => res.send("Navigate to /send or /routes"));
 
+// html pages notes
+app.get("/notes", (req, res) => res.sendFile(path.join(__dirname, '/public/notes.html')));
+
 // api routes
 app.get("/api/notes", (req, res) => {
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 //   res.send("notes");
 });
+
 
 // server
 app.listen(PORT, () =>
